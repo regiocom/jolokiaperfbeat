@@ -1,0 +1,11 @@
+/.idea
+/build
+/vendor
+/logs
+
+.DS_Store
+/jolokiaperfbeat
+/jolokiaperfbeat.test
+*.pyc
+*.exe
+*.iml

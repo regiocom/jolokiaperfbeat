@@ -1,0 +1,9 @@
+################### Jolokiaperfbeat Configuration Example #########################
+
+############################# Jolokiaperfbeat ######################################
+
+jolokiaperfbeat:
+  # Defines how often an event is sent to the output
+  period: 60s
+  # Base url for jolokia, e.g. http://jboss.acme.local:8080/jolokia/
+  baseurl: "http://jboss.acme.local:8080/jolokia/"

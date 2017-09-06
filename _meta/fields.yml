@@ -1,0 +1,9 @@
+- key: jolokiaperfbeat
+  title: jolokiaperfbeat
+  description:
+  fields:
+    - name: counter
+      type: long
+      required: true
+      description: >
+        Number increased in each run
