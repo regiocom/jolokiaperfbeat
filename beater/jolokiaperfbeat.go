@@ -9,7 +9,7 @@ import (
     "github.com/elastic/beats/libbeat/logp"
     "github.com/elastic/beats/libbeat/publisher"
 
-    "github.com/ErikWegner/jolokiaperfbeat/config"
+    "github.com/regiocom/jolokiaperfbeat/config"
 )
 
 type Jolokiaperfbeat struct {

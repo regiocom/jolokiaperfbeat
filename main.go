@@ -5,7 +5,7 @@ import (
 
 	"github.com/elastic/beats/libbeat/beat"
 
-	"github.com/ErikWegner/jolokiaperfbeat/beater"
+	"github.com/regiocom/jolokiaperfbeat/beater"
 )
 
 func main() {
