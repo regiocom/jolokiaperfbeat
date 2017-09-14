@@ -2,14 +2,31 @@
 
 Welcome to Jolokiaperfbeat.
 
+This [beat](https://www.elastic.co/de/products/beats) collects web service
+performance metrics from a Java application server (e. g. [WildFly](http://wildfly.org/)). 
+
+## Using Jolokiaperfbeat
+
+* Enable [JMX integration for CXF](http://cxf.apache.org/docs/jmx-management.html).
+* Install [Jolokia](https://jolokia.org/) to the application server, or 
+  install [Hawtio](http://hawt.io/) which already contains Jolokia.  
+* Configure `jolokiaperfbeat.yml`
+  * `period`: The pause interval between data collection calls
+  * `baseurl`: The path to access the Jolokia artifact
+  * `output`: see [output options](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-configuration-options.html)
+* Install jolokiaperfbeat as a service, or
+  run jolokiaperfbeat in a console
+ 
+
+## Building Jolokiaperfbeat
+
 Ensure that this folder is at the following location:
 `${GOPATH}/github.com/regiocom/jolokiaperfbeat`
-
-## Getting Started with Jolokiaperfbeat
 
 ### Requirements
 
 * [Golang](https://golang.org/dl/) 1.7
+* `${GOPATH}/github.com/elastic/beats` on branch 5.5
 
 ### Init Project
 To get running with Jolokiaperfbeat and also install the
