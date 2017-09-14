@@ -5,7 +5,7 @@ package main
 import (
 	"flag"
 	"testing"
-        "github.com/ErikWegner/jolokiaperfbeat/beater"
+        "github.com/regiocom/jolokiaperfbeat/beater"
         "io/ioutil"
 //        "fmt"
 )
@@ -44,6 +44,21 @@ func TestConvert(t *testing.T) {
 
 func TestServiceDataExctract(t *testing.T) {
     s := "org.apache.cxf:bus.id=BankcheckService-3.1.7,operation=\"validate\",port=\"BankcheckServiceSOAP\",service=\"{http://regiocom.com/}BankcheckService\",type=Performance.Counter.Server"
+    r := beater.ServiceDataExtract(s)
+    if r.ServiceName != "BankcheckService" {
+        t.Fatalf("Service mismatch: %s", r.ServiceName)
+    }
+    if r.Version != "3.1.7" {
+        t.Fatalf("Version mismatch: %s", r.Version)
+    }
+    if r.Operation != "validate" {
+        t.Fatalf("Operation mismatch: %s", r.Operation)
+    }
+}
+
+
+func TestServiceDataExctract2(t *testing.T) {
+    s := "org.apache.cxf:bus.id=BankcheckService-3.1.7-hotfix-1,operation=\"validate\",port=\"BankcheckServiceSOAP\",service=\"{http://regiocom.com/}BankcheckService\",type=Performance.Counter.Server"
     r := beater.ServiceDataExtract(s)
     if r.ServiceName != "BankcheckService" {
         t.Fatalf("Service mismatch: %s", r.ServiceName)

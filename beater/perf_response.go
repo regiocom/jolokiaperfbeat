@@ -33,7 +33,7 @@ func Convert(responseText []byte) (PerformanceCounterResponse, error) {
     return responseCounters, nil
 }
 
-var reg = regexp.MustCompile("bus.id=(?P<service>\\S+)-(?P<version>\\d+.\\d+.\\d+),operation=\"(?P<operation>\\S+)\",port")
+var reg = regexp.MustCompile("bus.id=(?P<service>\\S+)-(?P<version>\\d+.\\d+.\\d+).*,operation=\"(?P<operation>\\S+)\",port")
 var names = reg.SubexpNames()
 
 func ServiceDataExtract(key string) ServiceData {

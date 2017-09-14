@@ -7,7 +7,8 @@ performance metrics from a Java application server (e. g. [WildFly](http://wildf
 
 ## Using Jolokiaperfbeat
 
-* Enable [JMX integration for CXF](http://cxf.apache.org/docs/jmx-management.html).
+* Enable [JMX integration for CXF](http://cxf.apache.org/docs/jmx-management.html). Setup the 
+  cxf bus id to `<Servicename>-<Version.Major>.<Version.Minor>.<Version.Patch>`.
 * Install [Jolokia](https://jolokia.org/) to the application server, or 
   install [Hawtio](http://hawt.io/) which already contains Jolokia.  
 * Configure `jolokiaperfbeat.yml`
@@ -67,6 +68,8 @@ To run Jolokiaperfbeat with debugging output enabled, run:
 
 
 ### Test
+
+To just execute unit tests, run `go test`.  
 
 To test Jolokiaperfbeat, run the following command:
 
