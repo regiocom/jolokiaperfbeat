@@ -8,8 +8,9 @@ import "time"
 type Config struct {
     Period  time.Duration `config:"period"`
     Baseurl string `config:"baseurl"`
+    Provider string `config:"provider"`
 }
 
 var DefaultConfig = Config{
-    Period: 1 * time.Second,
+    Period: 60 * time.Second,
 }

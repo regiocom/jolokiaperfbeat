@@ -10,6 +10,7 @@ import (
     "github.com/elastic/beats/libbeat/publisher"
 
     "github.com/regiocom/jolokiaperfbeat/config"
+    "strings"
 )
 
 type Jolokiaperfbeat struct {
@@ -29,7 +30,25 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
         done:   make(chan struct{}),
         config: config,
     }
-    return bt, nil
+
+    return bt, ValidateConfig(bt.config)
+}
+func ValidateConfig(cfg config.Config) error {
+    var validProviders = []string {"cxfCounter", "cxfMetrics"}
+    if !stringInArray(cfg.Provider, validProviders) {
+        return fmt.Errorf(`Provider "%s" invalid. Valid options are [%s].`, cfg.Provider, strings.Join(validProviders, "|"))
+    }
+
+    return nil
+}
+
+func stringInArray(a string, list []string) bool {
+    for _, b := range list {
+        if b == a {
+            return true
+        }
+    }
+    return false
 }
 
 func (bt *Jolokiaperfbeat) Run(b *beat.Beat) error {
@@ -45,7 +64,7 @@ func (bt *Jolokiaperfbeat) Run(b *beat.Beat) error {
         case <-ticker.C:
         }
 
-        serverResponse, errHttp := GetStatsFromServer(bt.config.Baseurl)
+        serverResponse, errHttp := GetStatsFromServer(bt.config)
         if errHttp != nil {
             logp.Err("GetStatsFromServer", errHttp)
         } else {
@@ -56,19 +75,7 @@ func (bt *Jolokiaperfbeat) Run(b *beat.Beat) error {
                 for key, value := range perfCounters.Counters {
                     sd := ServiceDataExtract(key)
                     fmt.Println("Key:", key, "Value:", value)
-                    event := common.MapStr{
-                        "@timestamp": common.Time(time.Now()),
-                        "type":       b.Name,
-                        "counter":    counter,
-                        "service.name":      sd.ServiceName,
-                        "service.version":   sd.Version,
-                        "service.operation": sd.Operation,
-                        "avgresponsetime":   value.AvgResponseTime,
-                        "minresponsetime":   value.MinResponseTime,
-                        "maxresponsetime":   value.MaxResponseTime,
-                        "numinvocations":    value.NumInvocations,
-                        "numfaults":         value.NumRuntimeFaults,
-                    }
+                    event := CreateEvent(counter, b.Name, sd, value)
                     bt.client.PublishEvent(event)
                     logp.Info("Event sent")
                 }
