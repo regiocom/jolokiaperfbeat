@@ -7,6 +7,9 @@ jolokiaperfbeat:
   period: 300s
   # Base url for jolokia, e.g. http://jboss.acme.local:8080/jolokia/
   baseurl: "http://jboss.acme.local:8080/jolokia/"
+  # Performance feature:
+  #   cxfCounter | cxfMetrics
+  provider: "cxfMetrics"
 
 #================================ General =====================================
 

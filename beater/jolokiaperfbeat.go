@@ -74,7 +74,7 @@ func (bt *Jolokiaperfbeat) Run(b *beat.Beat) error {
             } else {
                 for key, value := range perfCounters.Counters {
                     sd := ServiceDataExtract(key)
-                    fmt.Println("Key:", key, "Value:", value)
+                    logp.Debug("Counters", "Key: %s, Value: %+v", key, value)
                     event := CreateEvent(counter, b.Name, sd, value)
                     bt.client.PublishEvent(event)
                     logp.Info("Event sent")

@@ -15,7 +15,7 @@ func GetStatsFromServer(config config.Config) ([]byte, error) {
     case "cxfCounter":
         url += "read/org.apache.cxf:bus.id=*,operation=\"*\",port=\"*\",service=\"*\",type=Performance.Counter.Server"
     case "cxfMetrics":
-        url += "org.apache.cxf:bus.id=*,type=Metrics.Server,service=*,port=*,Operation=*,Attribute=*"
+        url += `read/org.apache.cxf:bus.id=*,type=Metrics.Server,service=*,port=*,Operation=*,Attribute=*`
     }
 
     resp, err := http.Get(url)
